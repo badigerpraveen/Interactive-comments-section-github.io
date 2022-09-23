@@ -1,14 +1,12 @@
-import React from 'react';
-import './App.css';
 import Comment from './component/Comments';
+import './App.css';
+import { Container } from '@mui/material';
+
 function App() {
   return (
-     <>  
-   <Comment/> 
-  
-     </>
-      
-    
+    <Container sx={{width:900}} >
+      <Comment/>
+      </Container>
   );
 }
 

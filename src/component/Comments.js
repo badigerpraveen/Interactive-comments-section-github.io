@@ -1,9 +1,13 @@
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete'; 
+import EditIcon from '@mui/icons-material/Edit'; 
+import CloseIcon from '@mui/icons-material/Close';
 import React from "react";
 import { useState } from "react";
 import userImg from "../images/avatars/image-juliusomo.png";
 //import Otherscomments from "./Otherscomments";
 import { Grid } from "@mui/material";
+import { Style } from "@material-ui/icons";
 function Comment() {
   const [message, setMessage] = useState();
   const [isMessage, isSetMessage] = useState([]);
@@ -39,36 +43,54 @@ function Comment() {
   };
 
   console.log(isEditMessage, "isEditMessage");
+  
   return (
     <>
+     <div className="over"> 
       {isMessage.map((i) => {
-        return (
-          <Grid container>
-            <Grid item>
-              {i.id} {<img src={i.userImg} alt="img" />}
+        return ( 
+            
+          <Grid container spacing={2}   bgcolor="white"
+          p={1}
+          marginTop="10px"
+          marginLeft="10px"
+          borderRadius={3}>
+            <Grid item xs={9} display="flex" gap={2} >
+            <item>  {<img src={i.userImg} alt="img"  width="40px" height="auto"/>} </item>
+            <item> { <b>juliusomo </b>} </item>
             </Grid>
-            <Grid item> {i.userMessage}</Grid>
-            <Grid item>
-              <Button
-                variant="contained"
+            <Grid item sx={2} >
+            <Button
+                variant="text"
                 color="error"
-                onClick={() => deletMessag(i.id)}
+                onClick={() => deletMessag(i.id)} 
+                startIcon={isEditMessage ? " " : <DeleteIcon />} 
+                
               >
-                Delete
+              {isEditMessage ? " " :"Delet" }
+                
               </Button>
-              <Button variant="contained" onClick={() => editMessag(i.id)}>
-                {isEditMessage ? "Cancel" : "Edit"}
-              </Button>
+              <Button variant="text" onClick={() => editMessag(i.id)}  
+               color={isEditMessage ? "error": "info" }
+               startIcon={isEditMessage ? <CloseIcon/>  :<EditIcon/>}>
+                {isEditMessage ? "Cancel" : "Edit"  }
+              </Button> 
+              </Grid> 
+            <Grid item sx={6}>
+            
+              {i.userMessage}
+            </Grid> 
+            <Grid item xs={11} p={1}>
+              
               {isEditMessage && i.id ? (
                 <form>
-                  <textarea
+                  <TextField 
                     type="text"
                     name="message"
-                    rows="10"
-                    cols="106"
+                    fullWidth
                     placeholder="Add a comment"
                   />
-                  <Button type="submit" variant="contained">
+                  <Button type="submit" style={{marginTop:"10px"}} variant="contained">
                     Update
                   </Button>
                 </form>
@@ -78,26 +100,37 @@ function Comment() {
             </Grid>
           </Grid>
         );
-      })}
-      <Grid container> 
-      <Grid item>
+      })} 
+      </div>
       <form onSubmit={onSubmit}>
-        <img src={userImg} alt="img" />
-        <textarea
-          type="text"
-          name="message"
-          value={message}
-          rows="10"
-          cols="106"
-          placeholder="Add a comment"
-          onChange={oninputChange}
-        />
-        <Button type="submit" variant="contained">
-          Send
-        </Button>
-      </form>  
-      </Grid>
-      </Grid>
+        <Grid
+          container
+          spacing={2}
+          bgcolor="white"
+          p={1}
+          m={1}
+          borderRadius={3}
+        >
+          <Grid item sx={1}>
+            <img src={userImg} alt="img"  width="40px" height="auto" />
+          </Grid>
+          <Grid item xs={9}>
+            <TextField
+              type="text"
+              name="message"
+              value={message}
+              fullWidth
+              placeholder="Add a comment"
+              onChange={oninputChange}
+            />{" "}
+          </Grid>
+          <Grid item sx={1}>
+            <Button type="submit" variant="contained" fullWidth>
+              Send
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     </>
   );
 }
