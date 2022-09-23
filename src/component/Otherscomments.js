@@ -28,7 +28,8 @@ function Otherscomments({ isEditMessage, isSetEdtMessage }) {
             >
               <Grid item xs={10} display="flex" gap={2}>
                 <img src={content.user.image.png} alt="img" />
-                <b> {content.user.username} </b>
+                <b> {content.user.username} </b> 
+                {console.log(content.user.image.png,"content.user.image.png")}
                 {content.createdAt}
               </Grid>
               <Grid item sx={2}>
